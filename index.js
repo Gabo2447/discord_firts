@@ -17,21 +17,4 @@ const eventHandler = require("./src/handlers/eventHandler");
 eventHandler(client);
 commandHandler(client);
 
-// Deploy de comandos después de que el bot esté listo
-client.on('ready', () => {
-  (async () => {
-      try {
-          console.log(`Iniciando actualización de ${client.commands.size} comandos (/)`);
-          const commands = client.commands.map(command => command.data.toJSON());
-          const data = await rest.put(
-              Routes.applicationCommands(process.env.clientId),
-              { body: commands }
-          );
-          console.log(`Comandos actualizados exitosamente: ${data.length}`);
-      } catch (error) {
-          console.error(error);
-      }
-  })();
-});
-
 client.login(process.env.token);
