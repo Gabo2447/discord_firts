@@ -20,12 +20,13 @@ const client = new Client({
   ]
 });
 
-// Inicializa client.commands como una colección
-client.commands = new Collection();
+const commandHandler = require("./src/handlers/commandHandler");
+const prefixHandler = require("./src/handlers/prefixHandler");
+const loadEvent = require("./src/handlers/eventHandler");
 
-// Carga los handlers (asegúrate de que el archivo commandHandler.js esté configurado correctamente)
-require("./src/handlers/eventHandler")(client);
-require("./src/handlers/commandHandler")(client);
-require("./src/handlers/prefixHandler")(client);
+// Registrar eventos primero
+loadEvent(client);
+prefixHandler(client);
+commandHandler(client);
 
 client.login(process.env.token);
