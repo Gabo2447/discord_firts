@@ -25,28 +25,6 @@ Si quieres agregar mas comandos o funcionalidades basate de las siguientes plant
 > Cuidado con los comandos slash y los comandos prefijos, no utilizan la misma manera para enviar mensajes.
 
 ## 📑 SLASHCOMMANDS
-```javascript Slash Command
-// Comandos slash
-const { SlashCommandBuilder } = require('discord.js');
-
-module.exports = {
-  data: new SlashCommandBuilder()
-    .setName('test') // Nombre del comando
-    .setDescription('El bot responde con "Prueba"!'), // Descripción del comando
-
-  async execute(interaction) {
-    await interaction.reply('¡Prueba!');
-  }
-};
-```
+![alt text](assets/slashExample.png)
 ## 📄 PREFIXCOMMANDS
-```javascript Prefix Command
-// Comandos Prefix
-module.exports = {
-    name: 'test', // Nombre del comando
-    description: 'El bot responde con "Prueba"!', // Descripcion del comando
-    async execute(message, args, client) {
-        message.channel.send('¡Prueba!');
-    }
-} 
-```
+![alt text](assets/prefixExample.png)
