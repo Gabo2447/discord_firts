@@ -8,7 +8,7 @@ module.exports = {
 
   async execute(interaction) {
     const embed = new ColorTemplate()
-      .orange()
+      .cyanClaro()
       .setAuthor(interaction.guild.name, interaction.guild.iconURL())
       .setThumbnail(interaction.guild.iconURL({ dynamic: true, size: 1024 }))
       .setDescription(

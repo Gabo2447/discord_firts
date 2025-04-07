@@ -1,4 +1,4 @@
-const { EmbedTemplate, ColorTemplate } = require("@gabo2447/template");
+const { ColorTemplate } = require("@gabo2447/template");
 const { SlashCommandBuilder } = require("discord.js");
 
 module.exports = {
@@ -35,7 +35,7 @@ module.exports = {
       : roles;
 
     const embed = new ColorTemplate()
-      .red()
+      .cyanClaro()
       .setAuthor(user.username, user.displayAvatarURL({ dynamic: true }))
       .setTitle(`📋 Información de ${user.username}`)
       .setThumbnail(user.displayAvatarURL({ dynamic: true, size: 1024 }))

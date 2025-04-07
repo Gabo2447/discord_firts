@@ -1,5 +1,5 @@
 const { ColorTemplate } = require("@gabo2447/template");
-const { SlashCommandBuilder, EmbedBuilder } = require("discord.js");
+const { SlashCommandBuilder } = require("discord.js");
 
 module.exports = {
   data: new SlashCommandBuilder()
@@ -19,7 +19,7 @@ module.exports = {
           name: interaction.user.username,
           iconURL: interaction.user.displayAvatarURL(),
         })
-        .setColor(interaction.user.accentColor || embed.orange)
+        .setColor(interaction.user.accentColor || embed.cyanClaro)
         .setTitle(`Avatar de ${interaction.user.username}`)
         .setURL(`${interaction.user.displayAvatarURL({ size: 512})}`)
         .setImage(interaction.user.displayAvatarURL({ size: 512}));
