@@ -1,13 +1,9 @@
 const fs = require("node:fs");
 const path = require("node:path");
 const fg = require('figlet');
-const { Collection } = require('discord.js');
 
 module.exports = (client) => {
-  console.log(fg.textSync(`COMMAND HANDLER`)); // TÍTULO DEL COMMAND HANDLER
-
-  client.commands = new Collection();
-
+  console.log(fg.textSync(`COMMAND HANDLER`)); // TITULO DEL COMMAND HANDLER
   const commandsPath = path.join(__dirname, "../commands/slash");
 
   // Función recursiva para leer archivos en subcarpetas
@@ -32,8 +28,8 @@ module.exports = (client) => {
   for (const file of commandFiles) { // Bucle para ir archivo por archivo
     const command = require(file);
 
-    if (!command) { // Si el archivo no exporta nada, muestra un error
-      console.error(`[COMMANDHANDLER] Error al cargar el comando: ${file}`);
+    if (!command) { // Si command no tiene nada salta error
+      console.error(`Error al cargar el comando: ${file}`);
       continue;
     }
 
@@ -41,7 +37,7 @@ module.exports = (client) => {
       client.commands.set(command.data.name, command);
       console.log(`[Command Handler] Comando: ${command.data.name} [✔️ ]`);
     } else {
-      console.log(`[Command Handler] Comando: ${file} [ ❌ ] (IMPORTANTE: FALTA DATA O EXECUTE)`);
+      console.log(`Comando: ${command.data.name} [ ❌ ] (IMPORTANTE: FALTA DATA O EXECUTE)`);
     }
   }
 

@@ -9,14 +9,10 @@ const path = require("node:path");
 const fs = require("node:fs");
 const fg = require('figlet');
 
-
-module.exports = {
-  async loadEvent(client) {
-    console.log(fg.textSync(`EVENT HANDLER`))
-    const commandsPath = path.join(__dirname, '../events'); // Directorio
-    const commandFiles = fs
-      .readdirSync(commandsPath)
-      .filter((file) => file.endsWith(".js")); // Nombre del archivo
+module.exports = (client) => {
+    console.log(fg.textSync('EVENT HANDLER'))
+    const eventsPath = path.join(__dirname, '../events');
+    const eventFiles = fs.readdirSync(eventsPath).filter(file => file.endsWith('.js'));
 
     for (file of commandFiles) {
       const filePath = path.join(commandsPath, file); // Unir direcciones
