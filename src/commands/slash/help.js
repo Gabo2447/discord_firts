@@ -11,7 +11,7 @@ module.exports = {
     const user = interaction.user;
 
     const embed = new ColorTemplate()
-      .verdeClaro()
+      .orange()
       .setAuthor(user.username, user.displayAvatarURL())
       .setTitle(`|--| **COMANDOS ${interaction.client.user.username}** |--|`)
       .setDescription(

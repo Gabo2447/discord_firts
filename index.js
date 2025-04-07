@@ -1,4 +1,9 @@
-const { Client, Collection, GatewayIntentBits } = require("discord.js");
+const {
+  Client,
+  Collection,
+  Message,
+  GatewayIntentBits
+} = require("discord.js");
 require("dotenv").config();
 
 const client = new Client({
@@ -11,16 +16,17 @@ const client = new Client({
     GatewayIntentBits.GuildPresences,
     GatewayIntentBits.GuildMessageReactions,
     GatewayIntentBits.DirectMessageReactions,
-    GatewayIntentBits.GuildIntegrations,
-  ],
+    GatewayIntentBits.GuildIntegrations
+  ]
 });
 
-// Inicializa client.commands como una colección
-client.commands = new Collection();
+const commandHandler = require("./src/handlers/commandHandler");
+const prefixHandler = require("./src/handlers/prefixHandler");
+const { loadEvent } = require("./src/handlers/eventHandler");
 
-// Carga los handlers (asegúrate de que el archivo commandHandler.js esté configurado correctamente)
-require("./src/handlers/eventHandler")(client);
-require("./src/handlers/commandHandler")(client);
-require("./src/handlers/prefixHandler")(client);
+// Registrar eventos primero
+loadEvent(client);
+prefixHandler(client);
+commandHandler(client);
 
-client.login(process.env.TOKEN);
+client.login(process.env.token);

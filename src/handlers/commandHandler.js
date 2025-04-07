@@ -1,43 +1,32 @@
 const fs = require("node:fs");
 const path = require("node:path");
 const fg = require('figlet');
+const {Collection} = require('discord.js');
 
 module.exports = (client) => {
   console.log(fg.textSync(`COMMAND HANDLER`)); // TITULO DEL COMMAND HANDLER
+
+  client.commands = new Collection();
+  
   const commandsPath = path.join(__dirname, "../commands/slash");
+  const commandFiles = fs
+    .readdirSync(commandsPath)
+    .filter((file) => file.endsWith(".js"));
 
-  // Función recursiva para leer archivos en subcarpetas
-  const getCommandFiles = (dir) => {
-    let files = [];
-    const items = fs.readdirSync(dir, { withFileTypes: true });
-
-    for (const item of items) {
-      const fullPath = path.join(dir, item.name);
-      if (item.isDirectory()) {
-        files = files.concat(getCommandFiles(fullPath)); // Llama recursivamente si es una carpeta
-      } else if (item.isFile() && item.name.endsWith(".js")) {
-        files.push(fullPath); // Agrega el archivo si es un archivo .js
-      }
-    }
-
-    return files;
-  };
-
-  const commandFiles = getCommandFiles(commandsPath);
-
-  for (const file of commandFiles) { // Bucle para ir archivo por archivo
-    const command = require(file);
+  for (const file of commandFiles) { // Bucle para ir en archivo en archivo
+    const filePath = path.join(commandsPath, file);
+    const command = require(filePath);
 
     if (!command) { // Si command no tiene nada salta error
-      console.error(`Error al cargar el comando: ${file}`);
+      console.error(`[COMMANDHANDLER] Error al cargar el comando: ${file}`);
       continue;
     }
 
-    if ("data" in command && "execute" in command) { // Verifica que tenga "data" y "execute"
+    if ("data" in command && "execute" in command) { // Si falta data o execute salta error y si esta todo sale todo correcto
       client.commands.set(command.data.name, command);
       console.log(`[Command Handler] Comando: ${command.data.name} [✔️ ]`);
     } else {
-      console.log(`Comando: ${command.data.name} [ ❌ ] (IMPORTANTE: FALTA DATA O EXECUTE)`);
+      console.log(`[Command Handler] Comando: ${command.data.name} [ ❌ ] (IMPORTANTE: FALTA DATA O EXECUTE)`);
     }
   }
 
