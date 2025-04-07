@@ -22,7 +22,7 @@ const client = new Client({
 
 const commandHandler = require("./src/handlers/commandHandler");
 const prefixHandler = require("./src/handlers/prefixHandler");
-const { loadEvent } = require("./src/handlers/eventHandler");
+const loadEvent = require("./src/handlers/eventHandler");
 
 // Registrar eventos primero
 loadEvent(client);
